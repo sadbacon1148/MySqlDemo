@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MySqlDemo</string>
+    <string name="button_send">SEND</string>
+</resources>
