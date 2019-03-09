@@ -38,12 +38,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final WeakReference<Context> appCtx = new WeakReference<Context>(this);
+        final Context ctx = this;
         bgWorkerCallback = new BgWorkerCallback() {
+
             @Override
             public void loginResult(String result) {
 
-                Context ctx = appCtx.get();
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(ctx)
                         .setTitle("Login Status")
                         .setMessage(result);
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
                     Intent i = new Intent(ctx, BarcodeCaptureActivity.class);
                     ctx.startActivity(i);
-
+                    finish();
 
                     //context.startActivity(new Intent(context, QrCameraActivity.class));
                 } else {
