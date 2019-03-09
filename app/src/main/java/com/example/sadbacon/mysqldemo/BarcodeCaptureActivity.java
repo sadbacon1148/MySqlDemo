@@ -54,7 +54,7 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        setContentView(R.layout.scan);
+        setContentView(R.layout.activity_qrcamera);
 
         mPreview = (CameraSourcePreview) findViewById(R.id.preview);
 
@@ -78,7 +78,7 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
             intent.putExtra(BarcodeObject, barcode);
             setResult(CommonStatusCodes.SUCCESS, intent);
             finish();*/
-            Toast.makeText(this, barcode.displayValue, Toast.LENGTH_SHORT).show();
+            Log.i("BarcodeCaptureActivity", barcode.displayValue);
         }
     }
 

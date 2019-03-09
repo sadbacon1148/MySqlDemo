@@ -18,7 +18,7 @@ class QrCameraActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_qrcamera)
+        setContentView(R.layout.scan)
 
         mResultTextView = findViewById(R.id.result_textview)
 
