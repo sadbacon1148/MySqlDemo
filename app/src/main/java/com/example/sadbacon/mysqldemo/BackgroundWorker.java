@@ -2,7 +2,9 @@ package com.example.sadbacon.mysqldemo;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -17,16 +19,20 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 public class BackgroundWorker extends AsyncTask<String,Void,String> {
-    Context context;
+    //Context context;
+
     AlertDialog alertDialog;
+    Context ctx;
+
     BackgroundWorker (Context ctx)
     {
-        context = ctx;
+        this.ctx = ctx;
     }
     @Override
     protected String doInBackground(String... params) {
+        String result = "";
         String type = params[0];
-        String login_url = "http://172.20.10.11:80/login.php";
+        String login_url = "http://172.20.10.11/login.php";
         if(type.equals("login"))
         {
             try {
@@ -46,8 +52,8 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
                 outputStream.close();
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
-                String result="";
-                String line;
+
+                String line ="";
                 while ((line = bufferedReader.readLine())!= null)
                     {
                         result += line;
@@ -55,28 +61,48 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
                 bufferedReader.close();
                 inputStream.close();
                 httpURLConnection.disconnect();
-                return result;
-            } catch (MalformedURLException e) {
+            } catch (MalformedURLException e)
+            {
                 e.printStackTrace();
-            } catch (IOException e) {
+                result = "err 1";
+            } catch (IOException e)
+            {
                 e.printStackTrace();
+                result = "err 2";
             }
 
 
         }
-        return null;
+        return result;
     }
 
     @Override
     protected void onPreExecute() {
-        alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog = new AlertDialog.Builder(ctx).create();
         alertDialog.setTitle("Login Status");
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(String result)
+    {
+
         alertDialog.setMessage(result);
         alertDialog.show();
+
+        if(result.contentEquals("login success")) {
+            alertDialog.setMessage("login was OK");
+            alertDialog.show();
+
+            Intent i = new Intent (ctx, qrcamera.class);
+            ctx.startActivity(i);
+
+
+            //context.startActivity(new Intent(context, qrcamera.class));
+        } else
+        {
+            Toast toast= Toast.makeText(ctx, "Email or password is wrong", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     @Override
