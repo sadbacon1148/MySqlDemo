@@ -1,5 +1,6 @@
 package com.example.sadbacon.mysqldemo;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.lang.ref.WeakReference;
 
 import static android.support.v4.os.LocaleListCompat.create;
 
@@ -22,11 +25,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Button loginBtn;
-        loginBtn = findViewById(R.id.btnLogin);
         setContentView(R.layout.activity_main);
         UsernameEt = (EditText) findViewById(R.id.etUserName);
         PasswordEt = (EditText) findViewById(R.id.etPassword);
+        Button loginBtn;
+        loginBtn = findViewById(R.id.btnLogin);
+
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -34,20 +38,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        final WeakReference<Context> appCtx = new WeakReference<Context>(this);
         bgWorkerCallback = new BgWorkerCallback() {
             @Override
             public void loginResult(String result) {
 
-                Context ctx = getApplicationContext();
-                AlertDialog alertDialog = new AlertDialog.Builder(ctx).create();
-                alertDialog.setMessage(result);
-                alertDialog.show();
+                Context ctx = appCtx.get();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(ctx)
+                        .setTitle("Login Status")
+                        .setMessage(result);
+                alertDialog.create().show();
 
                 if (result.contentEquals("login success")) {
                     alertDialog.setMessage("login was OK");
                     alertDialog.show();
 
-                    Intent i = new Intent(ctx, QrCameraActivity.class);
+                    Intent i = new Intent(ctx, BarcodeCaptureActivity.class);
                     ctx.startActivity(i);
 
 
