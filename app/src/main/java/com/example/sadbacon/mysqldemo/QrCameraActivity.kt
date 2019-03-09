@@ -9,6 +9,7 @@ import android.widget.TextView
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.vision.barcode.Barcode
 import com.example.sadbacon.mysqldemo.BarcodeCaptureActivity
+import kotlinx.android.synthetic.main.scan.*
 
 
 class QrCameraActivity : AppCompatActivity() {
@@ -21,10 +22,11 @@ class QrCameraActivity : AppCompatActivity() {
 
         mResultTextView = findViewById(R.id.result_textview)
 
-        findViewById<Button>(R.id.scan_barcode_button).setOnClickListener {
+        scan_barcode_button.setOnClickListener {
             val intent = Intent(applicationContext, BarcodeCaptureActivity::class.java)
             startActivityForResult(intent, BARCODE_READER_REQUEST_CODE)
         }
+
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == BARCODE_READER_REQUEST_CODE) {

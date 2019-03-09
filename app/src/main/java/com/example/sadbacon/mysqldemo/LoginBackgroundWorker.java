@@ -18,15 +18,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class BackgroundWorker extends AsyncTask<String,Void,String> {
+public class LoginBackgroundWorker extends AsyncTask<String,Void,String> {
     //Context context;
 
-    AlertDialog alertDialog;
-    Context ctx;
+    private BgWorkerCallback callback;
 
-    BackgroundWorker (Context ctx)
+    LoginBackgroundWorker(BgWorkerCallback callback)
     {
-        this.ctx = ctx;
+        this.callback = callback;
+
     }
     @Override
     protected String doInBackground(String... params) {
@@ -77,36 +77,16 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
     }
 
     @Override
-    protected void onPreExecute() {
-        alertDialog = new AlertDialog.Builder(ctx).create();
-        alertDialog.setTitle("Login Status");
-    }
-
-    @Override
     protected void onPostExecute(String result)
     {
 
-        alertDialog.setMessage(result);
-        alertDialog.show();
+        callback.loginResult(result);
 
-        if(result.contentEquals("login success")) {
-            alertDialog.setMessage("login was OK");
-            alertDialog.show();
-
-            Intent i = new Intent (ctx, QrCameraActivity.class);
-            ctx.startActivity(i);
-
-
-            //context.startActivity(new Intent(context, QrCameraActivity.class));
-        } else
-        {
-            Toast toast= Toast.makeText(ctx, "Email or password is wrong", Toast.LENGTH_SHORT);
-            toast.show();
-        }
     }
 
     @Override
     protected void onProgressUpdate(Void... values) {
         super.onProgressUpdate(values);
     }
+
 }
