@@ -29,9 +29,6 @@
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode" />
 
-        <activity android:name=".QrCameraActivity">
-
-        </activity>
         <activity android:name=".BarcodeCaptureActivity" />
     </application>
 
