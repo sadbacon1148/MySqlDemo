@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         BackgroundWorker backgroundWorker = new BackgroundWorker(this);
         backgroundWorker.execute(type,username,password);
 
-        //context.startActivity(new Intent(context, qrcamera.class));
+        //context.startActivity(new Intent(context, QrCameraActivity.class));
 
 
     }

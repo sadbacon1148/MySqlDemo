@@ -93,11 +93,11 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
             alertDialog.setMessage("login was OK");
             alertDialog.show();
 
-            Intent i = new Intent (ctx, qrcamera.class);
+            Intent i = new Intent (ctx, QrCameraActivity.class);
             ctx.startActivity(i);
 
 
-            //context.startActivity(new Intent(context, qrcamera.class));
+            //context.startActivity(new Intent(context, QrCameraActivity.class));
         } else
         {
             Toast toast= Toast.makeText(ctx, "Email or password is wrong", Toast.LENGTH_SHORT);

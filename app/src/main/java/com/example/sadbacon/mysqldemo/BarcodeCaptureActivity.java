@@ -25,7 +25,7 @@ import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
-import com.example.sadbacon.mysqldemo.R;
+
 import com.example.sadbacon.mysqldemo.CameraSource;
 import com.example.sadbacon.mysqldemo.CameraSourcePreview;
 
