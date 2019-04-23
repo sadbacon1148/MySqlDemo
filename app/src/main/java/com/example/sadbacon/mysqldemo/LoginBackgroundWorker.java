@@ -51,7 +51,7 @@ public class LoginBackgroundWorker extends AsyncTask<String,Void,String> {
                 bufferedWriter.close();
                 outputStream.close();
                 InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
 
                 String line ="";
                 while ((line = bufferedReader.readLine())!= null)
@@ -78,15 +78,16 @@ public class LoginBackgroundWorker extends AsyncTask<String,Void,String> {
 
     @Override
     protected void onPostExecute(String result)
-    {
+        {
 
-        callback.loginResult(result);
+            callback.loginResult(result);
 
-    }
+        }
 
     @Override
-    protected void onProgressUpdate(Void... values) {
-        super.onProgressUpdate(values);
-    }
+    protected void onProgressUpdate(Void... values)
+        {
+            super.onProgressUpdate(values);
+        }
 
 }

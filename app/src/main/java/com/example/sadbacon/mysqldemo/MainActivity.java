@@ -3,10 +3,13 @@ package com.example.sadbacon.mysqldemo;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.inputmethodservice.InputMethodService;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -31,6 +34,14 @@ public class MainActivity extends AppCompatActivity {
         Button loginBtn;
         loginBtn = findViewById(R.id.btnLogin);
 
+        ConstraintLayout constraintLayout = findViewById(R.id.layout_constraint);
+        constraintLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HideKeyboard(view);
+            }
+        });
+
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,14 +54,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void loginResult(String result) {
-
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(ctx)
                         .setTitle("Login Status")
-                        .setMessage(result);
+                        .setMessage(result);//the "login success" result from the PHP script
                 alertDialog.create().show();
 
                 if (result.contentEquals("login success")) {
-                    alertDialog.setMessage("login was OK");
+//                    alertDialog.setMessage("login was OK");
                     alertDialog.show();
 
                     Intent i = new Intent(ctx, BarcodeCaptureActivity.class);
@@ -77,5 +87,12 @@ public class MainActivity extends AppCompatActivity {
         //context.startActivity(new Intent(context, QrCameraActivity.class));
 
     }
+
+    public void HideKeyboard(View view)
+        {
+            InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
+
+        }
 
 }

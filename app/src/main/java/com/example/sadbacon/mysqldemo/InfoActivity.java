@@ -13,6 +13,7 @@ public class InfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
+      //  new GetMethodDemo().execute("https://eeesus.eee.nottingham.ac.uk/~eezjib/eeyac5.php?devid=test&status=test1");
 
         String url = getIntent().getStringExtra(BarcodeObject);
 

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
+import java.net.URL;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -78,12 +80,12 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
             intent.putExtra(BarcodeObject, barcode);
             setResult(CommonStatusCodes.SUCCESS, intent);
             finish();*/
-            Log.i("BarcodeCaptureActivity", barcode.displayValue);
+            new GetMethodDemo().execute(barcode.displayValue);
+
             Intent intent = new Intent(this,InfoActivity.class);
             intent.putExtra(BarcodeObject, barcode.displayValue);
             this.startActivity(intent);
             finish();
-
         }
     }
 
